@@ -1,9 +1,16 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -11,6 +18,10 @@ const Header = () => {
       element.scrollIntoView({ behavior: "smooth" });
       setIsMenuOpen(false);
     }
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   return (
@@ -36,17 +47,45 @@ const Header = () => {
             <button onClick={() => scrollToSection("contact")} className="text-foreground hover:text-accent transition-colors">
               Contact
             </button>
+            {mounted && (
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg bg-muted hover:bg-muted/80 transition-colors"
+                aria-label="Toggle theme"
+              >
+                {theme === "dark" ? (
+                  <Sun className="w-5 h-5 text-foreground" />
+                ) : (
+                  <Moon className="w-5 h-5 text-foreground" />
+                )}
+              </button>
+            )}
             <Button variant="hero" onClick={() => scrollToSection("contact")}>Let's Collaborate</Button>
           </nav>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-foreground"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            {mounted && (
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg bg-muted hover:bg-muted/80 transition-colors"
+                aria-label="Toggle theme"
+              >
+                {theme === "dark" ? (
+                  <Sun className="w-5 h-5 text-foreground" />
+                ) : (
+                  <Moon className="w-5 h-5 text-foreground" />
+                )}
+              </button>
+            )}
+            <button
+              className="text-foreground"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}

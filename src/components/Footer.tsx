@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Social Links */}
           <div className="flex gap-6">
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/uvaram-mohanaram-aa20932b1/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
@@ -19,7 +19,7 @@ const Footer = () => {
               <Linkedin className="w-5 h-5" />
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/batman2400"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
